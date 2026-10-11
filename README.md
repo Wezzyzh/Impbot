@@ -1,103 +1,112 @@
-# IMP Bot
+# IMP — Root Community App
 
-**Intelligent Management Platform for Discord Communities**
+IMP is a custom app built for my community on [Root](https://www.rootapp.com/). It brings welcome messages, member statistics, and a join history into one community app channel.
 
-**One Bot. Total Control. Endless Possibilities.**
+This repository contains **Stage 1**. Chat moderation and support are planned features; their tabs currently show placeholders.
 
-IMP Bot is a modern Discord management bot designed to simplify server administration, improve community engagement, and bring powerful management tools together in one unified platform.
+## Features
 
-Built with flexibility, performance, and ease of use in mind, IMP Bot aims to deliver a seamless experience for server owners, moderators, and community members.
+- **Welcome messages:** Personalized text using the member and community names.
+- **Member statistics:** Total members and online/offline counts when Root makes status information available.
+- **Join history:** Recorded joins with a member name, profile picture, time, and welcome text, with more entries loaded as you scroll.
+- **Staff recognition:** The community owner and configured staff roles or members can see the moderation tab.
+- **Persistent storage:** Join history is stored in the app's SQLite database.
 
----
+Welcome messages are displayed inside the app. This version does not post welcome messages to chat, moderate messages, or handle support tickets.
 
-## 🚀 About IMP Bot
+## Requirements
 
-Managing a Discord community shouldn't require dozens of different bots.
+- Node.js 22 or newer and npm.
+- A Root account and an app registered in the [Root Developer Portal](https://dev.rootapp.com/).
+- The **Manage Apps** permission in the community where the app will be installed.
 
-IMP Bot is being developed as an all-in-one solution, combining essential server management features with advanced automation, customization, and community tools.
+## Setup
 
-Whether you're managing a small private server or a growing gaming community, IMP Bot is designed to adapt to your needs.
+Run the following commands from the app folder containing `package.json`. If you downloaded the Stage 1 ZIP, this is the `imp-app` folder.
 
-## ✨ Planned Features
+1. Register an app in the Root Developer Portal.
+2. Replace `your-app-id` in `root-manifest.json` with your app ID.
+3. Create a developer token and set it in `server/.env`:
 
-### 🛡️ Moderation & Security
-- Advanced moderation tools
-- Warning, mute, kick, and ban management
-- Moderation history and logging
-- Automated moderation and spam protection
-- Customizable permissions
+   ```dotenv
+   DEV_TOKEN=your-developer-token
+   ```
 
-### ⚙️ Server Management
-- Customizable server settings
-- Automated welcome and goodbye messages
-- Reaction roles and role management
-- Server activity tracking
-- Configurable automation
+4. Install dependencies, prepare the networking packages, and build:
 
-### 🎮 Community Engagement
-- Leveling and experience systems
-- Community rewards
-- Interactive commands
-- Engagement statistics
-- Community customization
+   ```sh
+   npm run setup
+   ```
 
-### 📊 Dashboard & Analytics
-- Modern management interface
-- Server statistics and insights
-- Moderation activity overview
-- Centralized configuration
-- User-friendly controls
+Keep developer tokens private. Do not commit your populated `.env` file or put tokens in client code.
 
-## 🏗️ Development Status
+For subsequent builds:
 
-**IMP Bot is currently under active development.**
+```sh
+npm run build
+```
 
-Features, functionality, and availability may change as development progresses.
+## Local development
 
-Our goal is to create a reliable, powerful, and visually polished Discord management experience.
+Start the Root development host in one terminal:
 
-## 🔒 Privacy & Security
+```sh
+cd server
+npm run server
+```
 
-User privacy and data protection are important parts of IMP Bot's development.
+Start the client in a second terminal:
 
-The project aims to follow Discord's developer requirements and applicable data protection laws.
+```sh
+cd client
+npm run client
+```
 
-A detailed Privacy Policy and Terms of Service will be published before public release.
+The project also includes a standalone preview using mock data:
 
-## 🧩 Technology
+```sh
+cd client
+npm run preview:build
+```
 
-IMP Bot is being designed with an emphasis on:
+The preview build is written to `client/dist-preview`. Demo data does not reflect a live Root community.
 
-- Performance and reliability
-- Scalable architecture
-- Secure data handling
-- Easy configuration
-- Modern user experience
+## Customize and install
 
-## 🗺️ Roadmap
+Edit `server/src/welcome.config.json` to change the welcome template. Supported placeholders are `{member}` and `{community}`. Rebuild and upload a new package after changing it.
 
-- [ ] Core bot functionality
-- [ ] Moderation and security tools
-- [ ] Server management features
-- [ ] Community engagement systems
-- [ ] Web dashboard
-- [ ] Testing and optimization
-- [ ] Public release
+To create a Root package, run this from the app folder:
 
-## 🤝 Contributions
+```sh
+npx rootsdk build package
+```
 
-IMP Bot is currently an independently developed project.
+Upload the generated `.pkg` file through Root's developer workflow and install the app in your community. Configure **Staff-Rollen** in the app settings to select staff roles or individual members. The community owner is always treated as staff.
 
-Contribution guidelines and collaboration opportunities may be introduced in the future.
+Root hosts the published app's server and datastore, with a separate instance for each installing community.
 
-## 📜 License
+## Tests
 
-All rights reserved unless otherwise specified.
+From the app folder:
 
-## 📬 Support
+```sh
+npm test
+```
 
-Official support channels and contact information will be announced as development progresses.
+The supplied tests cover staff access decisions, welcome text rendering, and join storage with pagination.
 
----
+## Privacy and current limitations
 
-**IMP Bot — Built for Communities. Designed for Control.**
+The app stores Root user IDs, display names, profile-picture references, recorded join times, and welcome text. The join history is visible to members who can access the app, rather than being restricted to staff.
+
+Stage 1 has no automatic retention period or built-in deletion interface. Leaving the community does not automatically remove a member's join records. Deletion handling needs to be addressed before relying on the app to fulfil deletion requests.
+
+Online status depends on what Root exposes to the viewing member. Counts may be unavailable or incomplete; they should not be treated as a full activity log.
+
+This version contains no AI, advertising, or analytics integration. Although AI assisted development, the supplied app does not send member data to an AI service.
+
+Read the [Privacy Policy](PRIVACY.md) for details. Root's hosting does not remove the app operator's responsibilities under Root's terms or applicable law.
+
+## Contact
+
+Questions or privacy requests: **herzog.luca@hotmail.com**.
