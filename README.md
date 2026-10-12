@@ -109,4 +109,3 @@ Read the [Privacy Policy](PRIVACY.md) for details. Root's hosting does not remov
 
 ## Contact
 
-Questions or privacy requests: **herzog.luca@hotmail.com**.
