@@ -21,19 +21,6 @@ Each community manages its own IMP installation. Contact that community’s owne
 Tickets and moderation records have no fixed automatic deletion period. Retention and deletion remain subject to valid requests, applicable law and Root’s requirements, as explained in the policy.
 
 The deletion tool affects only the selected community’s IMP app data. It does not delete Root accounts, native messages, native roles or bans, other communities’ records, downloaded transcripts or Root-managed backups. Shared tickets involving a selected member are removed in full. Active owned voice rooms and unresolved linked operations must be handled first; personal details in unrelated free text need separate review.
-
-## Publish the policy
-
-In this repository, open **Settings → Pages** and select **Deploy from a branch → main → /(root)**, then save.
-
-After GitHub Pages publishes the site, the policy URL is:
-
-https://wezzyzh.github.io/Impbot/Privacy.html
-
-Verify that the page opens publicly before using it in the Root Developer Portal.
-
-## Platform
-
 IMP is an independently developed app for Root. Features depend on the installed Root SDK and the permissions granted by each community. IMP does not claim support for unavailable Root APIs.
 
 This repository contains policy documentation, not the app’s installable package or complete source code.
