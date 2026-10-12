@@ -1,111 +1,39 @@
-# IMP — Root Community App
+# IMP — Work Edition
 
-IMP is a custom app built for my community on [Root](https://www.rootapp.com/). It brings welcome messages, member statistics, and a join history into one community app channel.
-
-This repository contains **Stage 1**. Chat moderation and support are planned features; their tabs currently show placeholders.
+Community support and moderation for Root, created and maintained by **woody**.
 
 ## Features
 
-- **Welcome messages:** Personalized text using the member and community names.
-- **Member statistics:** Total members and online/offline counts when Root makes status information available.
-- **Join history:** Recorded joins with a member name, profile picture, time, and welcome text, with more entries loaded as you scroll.
-- **Staff recognition:** The community owner and configured staff roles or members can see the moderation tab.
-- **Persistent storage:** Join history is stored in the app's SQLite database.
+- Private support tickets with replies, staff assignments, status controls and downloadable transcripts.
+- Member moderation, chat cleanup, announcements and scheduled announcements, subject to Root permissions.
+- Configurable welcome messages and notifications.
+- Temporary voice rooms with group or invited-member access, owner controls and empty-room cleanup.
+- Editable page text and role-based staff access.
+- Normal emoji pickers and compact, scrollable activity lists.
+- Administrator-only deletion of linked member records from the current community’s IMP datastore, with a preview and explicit confirmation.
 
-Welcome messages are displayed inside the app. This version does not post welcome messages to chat, moderate messages, or handle support tickets.
+## Privacy
 
-## Requirements
+This repository hosts IMP’s privacy policy. The policy source is [Privacy.html](Privacy.html).
 
-- Node.js 22 or newer and npm.
-- A Root account and an app registered in the [Root Developer Portal](https://dev.rootapp.com/).
-- The **Manage Apps** permission in the community where the app will be installed.
+Each community manages its own IMP installation. Contact that community’s owner or administrators for access, correction or deletion requests. For developer assistance, contact **woody** at [wuki.tera@gmail.com](mailto:wuki.tera@gmail.com).
 
-## Setup
+Tickets and moderation records have no fixed automatic deletion period. Retention and deletion remain subject to valid requests, applicable law and Root’s requirements, as explained in the policy.
 
-Run the following commands from the app folder containing `package.json`. If you downloaded the Stage 1 ZIP, this is the `imp-app` folder.
+The deletion tool affects only the selected community’s IMP app data. It does not delete Root accounts, native messages, native roles or bans, other communities’ records, downloaded transcripts or Root-managed backups. Shared tickets involving a selected member are removed in full. Active owned voice rooms and unresolved linked operations must be handled first; personal details in unrelated free text need separate review.
 
-1. Register an app in the Root Developer Portal.
-2. Replace `your-app-id` in `root-manifest.json` with your app ID.
-3. Create a developer token and set it in `server/.env`:
+## Publish the policy
 
-   ```dotenv
-   DEV_TOKEN=your-developer-token
-   ```
+In this repository, open **Settings → Pages** and select **Deploy from a branch → main → /(root)**, then save.
 
-4. Install dependencies, prepare the networking packages, and build:
+After GitHub Pages publishes the site, the policy URL is:
 
-   ```sh
-   npm run setup
-   ```
+https://wezzyzh.github.io/Impbot/Privacy.html
 
-Keep developer tokens private. Do not commit your populated `.env` file or put tokens in client code.
+Verify that the page opens publicly before using it in the Root Developer Portal.
 
-For subsequent builds:
+## Platform
 
-```sh
-npm run build
-```
+IMP is an independently developed app for Root. Features depend on the installed Root SDK and the permissions granted by each community. IMP does not claim support for unavailable Root APIs.
 
-## Local development
-
-Start the Root development host in one terminal:
-
-```sh
-cd server
-npm run server
-```
-
-Start the client in a second terminal:
-
-```sh
-cd client
-npm run client
-```
-
-The project also includes a standalone preview using mock data:
-
-```sh
-cd client
-npm run preview:build
-```
-
-The preview build is written to `client/dist-preview`. Demo data does not reflect a live Root community.
-
-## Customize and install
-
-Edit `server/src/welcome.config.json` to change the welcome template. Supported placeholders are `{member}` and `{community}`. Rebuild and upload a new package after changing it.
-
-To create a Root package, run this from the app folder:
-
-```sh
-npx rootsdk build package
-```
-
-Upload the generated `.pkg` file through Root's developer workflow and install the app in your community. Configure **Staff-Rollen** in the app settings to select staff roles or individual members. The community owner is always treated as staff.
-
-Root hosts the published app's server and datastore, with a separate instance for each installing community.
-
-## Tests
-
-From the app folder:
-
-```sh
-npm test
-```
-
-The supplied tests cover staff access decisions, welcome text rendering, and join storage with pagination.
-
-## Privacy and current limitations
-
-The app stores Root user IDs, display names, profile-picture references, recorded join times, and welcome text. The join history is visible to members who can access the app, rather than being restricted to staff.
-
-Stage 1 has no automatic retention period or built-in deletion interface. Leaving the community does not automatically remove a member's join records. Deletion handling needs to be addressed before relying on the app to fulfil deletion requests.
-
-Online status depends on what Root exposes to the viewing member. Counts may be unavailable or incomplete; they should not be treated as a full activity log.
-
-This version contains no AI, advertising, or analytics integration. Although AI assisted development, the supplied app does not send member data to an AI service.
-
-Read the [Privacy Policy](PRIVACY.md) for details. Root's hosting does not remove the app operator's responsibilities under Root's terms or applicable law.
-
-## Contact
-
+This repository contains policy documentation, not the app’s installable package or complete source code.
